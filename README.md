@@ -45,9 +45,9 @@ input_pdf: Path to the input PDF file (required)
 The parser generates JSON output with the following  structure as  mentioned in the document 
  JSON Structure
 The JSON :
-○ Maintains page-level hierarchy.
-○ Captures the type of data:
-■ paragraph
-■ table
-■ chart
-○ Includes section and sub-section names where applicable
+ Maintains page-level hierarchy.
+ Captures the type of data:
+  paragraph
+  table
+  chart
+ Includes section and sub-section names where applicable
