@@ -21,18 +21,9 @@ except ImportError as e:
 
 
 class PDFParser:
-    """
-    A comprehensive PDF parser that extracts text, tables, and charts
-    while preserving document hierarchy.
-    """
     
     def __init__(self, pdf_path: str):
-        """
-        Initialize the PDF parser.
-        
-        Args:
-            pdf_path (str): Path to the PDF file to parse
-        """
+ 
         self.pdf_path = Path(pdf_path)
         self.sections_pattern = re.compile(
             r'^(?:\d+\.?\s*)?([A-Z][A-Za-z\s]+?)(?:\n|\r\n?)',
@@ -48,15 +39,7 @@ class PDFParser:
         self.logger = logging.getLogger(__name__)
     
     def extract_sections_and_subsections(self, text: str) -> Tuple[str, str]:
-        """
-        Extract section and sub-section information from text.
-        
-        Args:
-            text (str): Text to analyze
-            
-        Returns:
-            Tuple[str, str]: Section name and sub-section name
-        """
+   
         # Look for common section patterns
         section_patterns = [
             r'^\s*(\d+\.?\s*[A-Z][A-Za-z\s]+)',
@@ -96,15 +79,7 @@ class PDFParser:
         return section, sub_section
     
     def clean_text(self, text: str) -> str:
-        """
-        Clean extracted text by removing excessive whitespace and formatting issues.
-        
-        Args:
-            text (str): Raw text to clean
-            
-        Returns:
-            str: Cleaned text
-        """
+
         if not text:
             return ""
         
@@ -162,15 +137,6 @@ class PDFParser:
         return tables
     
     def detect_charts_in_page(self, page) -> List[Dict[str, Any]]:
-        """
-        Detect and extract chart information from a page.
-        
-        Args:
-            page: pdfplumber page object
-            
-        Returns:
-            List[Dict[str, Any]]: List of chart dictionaries
-        """
         charts = []
         
         try:
@@ -182,7 +148,7 @@ class PDFParser:
                 width = image.get('width', 0)
                 height = image.get('height', 0)
                 
-                # Heuristic: charts are usually reasonably sized
+               
                 if width > 100 and height > 100:
                     # Try to extract any nearby text that might describe the chart
                     x0, y0 = image.get('x0', 0), image.get('y0', 0)
@@ -210,15 +176,7 @@ class PDFParser:
         return charts
     
     def analyze_content_blocks(self, page) -> List[Dict[str, Any]]:
-        """
-        Analyze page content and separate into logical blocks.
-        
-        Args:
-            page: pdfplumber page object
-            
-        Returns:
-            List[Dict[str, Any]]: List of content blocks
-        """
+     
         content_blocks = []
         
         # Extract text with positioning information
@@ -279,12 +237,7 @@ class PDFParser:
         return content_blocks
     
     def parse_pdf(self) -> Dict[str, Any]:
-        """
-        Parse the PDF file and extract structured content.
-        
-        Returns:
-            Dict[str, Any]: Structured JSON representation of the PDF
-        """
+       
         if not self.pdf_path.exists():
             raise FileNotFoundError(f"PDF file not found: {self.pdf_path}")
         
@@ -338,13 +291,7 @@ class PDFParser:
         return result
     
     def save_json(self, data: Dict[str, Any], output_path: str):
-        """
-        Save the extracted data to a JSON file.
-        
-        Args:
-            data (Dict[str, Any]): Extracted data
-            output_path (str): Output file path
-        """
+      
         output_path = Path(output_path)
         
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -354,9 +301,7 @@ class PDFParser:
 
 
 def main():
-    """
-    Main function to run the PDF parser from command line.
-    """
+   
     parser = argparse.ArgumentParser(description="Parse PDF and extract structured JSON")
     parser.add_argument("input_pdf", help="Path to input PDF file")
     parser.add_argument("-o", "--output", default="output.json", help="Output JSON file path")
@@ -381,4 +326,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
