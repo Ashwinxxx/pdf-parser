@@ -1,0 +1,10 @@
+
+pdfplumber>=0.9.0
+camelot-py[cv]>=0.10.1
+pandas>=1.3.0
+Pillow>=8.0.0
+pytesseract>=0.3.8
+opencv-python>=4.5.0
+pytest>=6.0.0
+black>=21.0.0
+flake8>=3.9.0
