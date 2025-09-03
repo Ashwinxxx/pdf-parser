@@ -26,9 +26,10 @@ cd pdf-parser
 2} Install dependencies:
 
 bashpip install -r requirements.txt
-Usage
 
-Basic Usage
+
+
+Usage
 bashpython pdf_parser.py input.pdf
 With Custom Output File
 bashpython pdf_parser.py input.pdf -o extracted_content.json
